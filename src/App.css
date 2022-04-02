@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -22,17 +22,55 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+} */
+h2{
+  text-align: center;
+}
+.searchContainer input{
+  padding: 5px;
+  margin: 10px;
+  float: right !important;
+  width: 20%;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+th{
+  background-color: black;
+  color: white;
+  border: 1px solid rgb(243, 240, 240);
+  text-align: left;
+  padding: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+td {
+  border: 1px solid rgb(33, 33, 33);
+  text-align: left;
+  padding: 10px;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.container{
+  padding: 10px;
+}
+.pagination {
+  display: inline-block;
+  padding: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
 }
+
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
