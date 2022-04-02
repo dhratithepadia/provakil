@@ -16,8 +16,9 @@ const Home = () => {
     }
 
     const [cryptoData,setCryptoData] = useState([])
-    const ws = new WebSocket(`wss://ws.coincap.io/prices?assets=${asset}`);
+    //const ws = new WebSocket(`wss://ws.coincap.io/prices?assets=${asset}`);
     useEffect(()=> {
+        const ws = new WebSocket(`wss://ws.coincap.io/prices?assets=${asset}`);
         ws.onmessage = (msg)=> {
           setCryptoData((prev)=> {
               const prices = JSON.parse(msg.data);
@@ -36,6 +37,7 @@ const Home = () => {
             return JSON.parse(msg.data)
           });
         }
+        return ()=>{ws.close()}
         }, [asset])
     
 
