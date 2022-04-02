@@ -8,6 +8,8 @@ const Home = () => {
     const[active, setActive]= useState(1);
     const [offset, setOffset] = useState(0);
     const [asset, setAsset] = useState("");
+    const [priceChange, setPriceChange] = useState("black");
+
 
     const handleOffset = (next)=> {
         setOffset((next-1)*pageSize)
@@ -16,13 +18,26 @@ const Home = () => {
     const [cryptoData,setCryptoData] = useState([])
     const ws = new WebSocket(`wss://ws.coincap.io/prices?assets=${asset}`);
     useEffect(()=> {
-    ws.onmessage = (msg)=> {
-    const msgObj = {}
-      
-      setCryptoData(JSON.parse(msg.data));
-      console.log(msg.data);
-    }
-    }, [asset])
+        ws.onmessage = (msg)=> {
+          setCryptoData((prev)=> {
+              const prices = JSON.parse(msg.data);
+              const price = {}
+              if(Object.keys(prev).length) {
+                  Object.keys(prev).map((key)=> {
+                      if(prev[key] > prices[key]) {
+                          price[key] = "green";
+                      } else {
+                          price[key] = "red";
+                      }
+                  });
+                }
+             setPriceChange(price);
+              console.log(prev, JSON.parse(msg.data))
+            return JSON.parse(msg.data)
+          });
+        }
+        }, [asset])
+    
 
 
     const getData =async ()=> {
@@ -88,7 +103,7 @@ const Home = () => {
             <td>{ele.maxSupply}</td>
             <td>{parseInt(ele.marketCapUsd).toFixed(2)}</td>
             <td>{parseInt(ele.volumeUsd24Hr).toFixed(2)}</td>
-            <td style={{color: "green"}}>{cryptoData[ele.name.toLowerCase()] || ele.priceUsd}</td>
+            <td style={{color: priceChange[ele.name.toLowerCase()]}}>{cryptoData[ele.name.toLowerCase()] || ele.priceUsd}</td>
             <td>{ele.changePercent24Hr}</td>
             
             <td>{parseInt(ele.vwap24Hr).toFixed(2)}</td>
