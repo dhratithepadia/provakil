@@ -33,7 +33,6 @@ const Home = () => {
                   });
                 }
              setPriceChange(price);
-              console.log(prev, JSON.parse(msg.data))
             return JSON.parse(msg.data)
           });
         }
